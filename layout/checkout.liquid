@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+    {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' | script_tag }}
+    <script src="//cdn.optimizely.com/js/5046370664.js"></script>
+  	<!-- Start BounceX tag. Deploy at the beginning of document head. -->
+    <script>
+      (function(d) {
+        var e = d.createElement('script');
+        e.src = d.location.protocol + '//tag.bounceexchange.com/1554/i.js';
+        e.async = true;
+        d.getElementsByTagName("head")[0].appendChild(e);
+      }(document));
+    </script>
+    <!-- End Bounce X tag -->
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+
+    <title>{{ shop.name }} - {{ page_title }}</title>
+
+    {{ content_for_header }}
+
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}
+
+
+<!-- bing tracking code -->
+<script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"4054157"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script><noscript><img src="//bat.bing.com/action/0?ti=4054157&Ver=2" height="0" width="0" style="display:none; visibility: hidden;" /></noscript>
+<!-- / bing tracking code -->
+
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','//connect.facebook.net/en_US/fbevents.js');
+fbq('init', '676615992413367');
+fbq('track', "PageView");</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=676615992413367&ev=PageView&noscript=1"
+/></noscript>
+<script>(function() { // @author - tomfuertes_at_gmail.com
+
+  // test for just came from cart
+  if (/store\.draxe\.com\/cart/.test(document.referrer)) {
+    fire('InitiateCheckout');
+  }
+
+  // track AddPaymentInfo onload b/c jQuery doesn't exist till then
+  listen('load', window, function onload() {
+    if (!window.jQuery) return;
+    jQuery('.input-radio[name="checkout[payment_gateway]"],' +
+      '#checkout_credit_card_number').one('change', function() {
+      fire('AddPaymentInfo');
+    });
+  });
+
+  function listen(evnt, elem, func) {
+    if (elem.addEventListener) // W3C DOM
+      elem.addEventListener(evnt, func, false);
+    else if (elem.attachEvent) { // IE DOM
+      var r = elem.attachEvent("on" + evnt, func);
+      return r;
+    }
+  }
+
+  function fire(step) {
+    fbq('track', step);
+    window.uetq = window.uetq || [];
+    uetq.push({
+      'ec': 'Shopify',
+      'ea': 'Checkout',
+      'el': step,
+      'ev': 0
+    });
+  }
+
+})(); // </script>
+<!-- /Facebook Pixel Code -->
+
+<!-- Start Visual Website Optimizer Asynchronous Code -->
+<script type='text/javascript'>
+var _vwo_code=(function(){
+var account_id=82917,
+settings_tolerance=2000,
+library_tolerance=2500,
+use_existing_jquery=false,
+// DO NOT EDIT BELOW THIS LINE
+f=false,d=document;return{use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){settings_timer=setTimeout('_vwo_code.finish()',settings_tolerance);var a=d.createElement('style'),b='body{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}',h=d.getElementsByTagName('head')[0];a.setAttribute('id','_vis_opt_path_hides');a.setAttribute('type','text/css');if(a.styleSheet)a.styleSheet.cssText=b;else a.appendChild(d.createTextNode(b));h.appendChild(a);this.load('//dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&r='+Math.random());return settings_timer;}};}());_vwo_settings_timer=_vwo_code.init();
+</script>
+<!-- End Visual Website Optimizer Asynchronous Code -->
+
+  </head>
+  <body>
+    <div class="banner" data-header>
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </div>
+
+    {{ order_summary_toggle }}
+
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="sidebar">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </div>
+        <div class="main" role="main">
+          <div class="main__header">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </div>
+          <div class="main__content">
+            {{ content_for_layout }}
+          </div>
+          <div class="main__footer" role="contentinfo">
+            {{ content_for_footer }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{ tracking_code }}
+  </body>
+</html>

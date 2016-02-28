@@ -1,0 +1,242 @@
+{% include 'subscription-cart-footer' %}
+
+<div class="cart-scope">
+{% if cart.item_count > 0 %}
+	<h2 style=" border: none; margin: 0 auto 16px auto; font-size: 27px; font-weight: 500; padding: 0 0 4px 39px; background: url('https://cdn.shopify.com/s/files/1/0053/9952/t/3/assets/checkmark30by30.png') no-repeat; color:{{ settings.product_name_color }};" class="hidden">Item added to cart</h2>
+{% endif %}
+
+<h2 style="padding-top: 20px;" class="cart-products-title">Shopping Cart</h2>
+
+  {% if customer.tags contains "Wholesale" %}
+{% else %}
+    <div style="display:none;" id="minmaxify_disable"></div>
+{% endif %}
+
+<div class="page_header hidden">
+  <h1 class="page_heading">Shopping Cart</h1>
+</div>
+
+
+<div class="page_content">
+
+{% if cart.item_count > 0 %}
+
+<form action="/cart" method="post" class="" class="form-inline">
+
+	<table class="cart-table">
+          <thead>
+            <tr>
+              <th class="image">Item</th>
+              <th class="item-name">&nbsp;</th>
+              <th class="qty">Quantity</th>
+              <th class="eff-price">Effective Price</th>
+              <th class="total">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+		  <script>mixed_cart = false;</script>
+            {% for item in cart.items %}
+            {% assign prod_index = forloop.index0 %}
+<input type="hidden" name="product_id[{{ forloop.index0 }}]" value="{{ item.product.id }}">
+<input type="hidden" name="variant_id[{{ forloop.index0 }}]" value="{{ item.variant.id }}">
+<input type="hidden" name="quantity[{{ forloop.index0 }}]" value="{{ item.quantity }}">
+				<tr>
+					<td class="image">
+						<div class="product_image">
+						  <a href="{{ item.url }}">
+							<img src="{{ item | img_url: 'medium' }}"  alt="{{ item.title | escape }}" />
+						  </a>
+						</div>
+					  </td>
+
+					  <td class="item">
+						<a href="{{ item.url }}">
+						  <strong>{{ item.product.title }}</strong>
+						  {% if item.product.variants.size > 1 %}
+						  <span class="variant_title">{{ item.variant.title }}</span>
+						  {% endif %}
+                        </a>
+<!-- bold-ro-liquid -->
+                    {% for p in item.properties %}
+                	{% if p.first == "frequency_num" %}
+                	<script>
+                	mixed_cart = true;
+                	</script>
+                	<br>
+                	<span class="bold_ro_every">Every</span>
+                	<input type="hidden" name="{{ prod_index }}[number]" value={{p.last}} />
+                	{% endif %}
+
+                	{% if p.first == "frequency_type" %}
+                	<input type="hidden" name="{{ prod_index }}[type_id]" value={{p.last}} />
+                	{% endif %}
+
+                	{% if p.first == "frequency_num" or p.first == "frequency_type_text" %}
+                	{{ p.last }}
+                	{% endif %}
+                	{% if p.first == "group_id" %}
+                	<input type="hidden" name="{{ prod_index }}[group_id]" value={{p.last}} />
+                	{% endif %}
+                    {% if p.first == "discounted_price" %}
+                		<br><span class="bold_ro_discounted_price">Discounted Price</span>
+                <span class="discounted_price_in_cart">{{ p.last }} </span> <span class="bold_ro_each">each</span>
+                    {% endif %}
+                {% endfor %}
+                	<!-- bold-ro-liquid -->
+
+                          <!-- bootstrap heroes edits -->
+                          {% assign recurringchecked = false %}
+                          {% assign ship_interval = '' %}
+
+
+                          {% for prop in item.properties  %}
+                            {%if prop.first == 'shipping_interval_frequency'%}
+                                  {% assign recurringchecked = true %}
+                                  {% assign ship_interval = prop.last %}
+                            {% endif%}
+                          {% endfor%}
+                        {% if ship_interval != ''%}
+                            <div>Recurring Delivery every {{ship_interval}} days. Change or cancel anytime</div>
+                        {% endif %}
+					  </td>
+
+					  <td class="qty">
+					  	<div class="qty"><label for="updates[]">Qty: </label><input type="text" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" class="input-small form-control update-qty"/></div>
+						<a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart bold-ro-remove">Remove</a>
+					  </td>
+					 <!-- FIX RO ITEM PRICES -->
+{% if item.properties.discounted_price != blank %}
+{% assign ro_item_price = item.properties.discounted_price | replace: '.', 'v' | handleize | replace: 'v', '.' | times: 100 | money_without_currency | times: 100 %}
+{% assign ro_line_item_price = ro_item_price | times: item.quantity %}
+{% else %}
+{% assign ro_item_price = item.price %}
+{% assign ro_line_item_price = item.line_price %}
+{% endif %}
+					  <td class="eff-price">
+					  	<span class="money">{{ ro_item_price | money }}</span>
+					  </td>
+
+					  <td class="total">
+					  	<span class="money">{{ ro_line_item_price | money }}</span>
+					  </td>
+
+				</tr>
+			{% endfor %}
+		  </tbody>
+
+		<thead class="bottom-thead">
+            <tr>
+              <th class="image">&nbsp;</th>
+              <th class="item-name">&nbsp;</th>
+              <th class="qty"><input type="submit" name="update" value="Update Cart" class="update-cart" /></th>
+              <th class="eff-price">&nbsp;</th>
+              <th class="total">&nbsp;</th>
+            </tr>
+          </thead>
+	</table><!--End table cart-table-->
+
+	<input type="submit" name="update" value="Update Cart" class="update-cart mobile-update-cart show-mobile" />
+
+	<div class="continue-shopping"><a href="https://store.draxe.com/">Continue shopping</a></div>
+
+	<div class="cart-pricing-order">
+		<table>
+		<tr>
+
+		<td class="t-label">
+			<strong>Estimated Subtotal</strong><br /><small>Tax will be added at checkout.</small>
+		</td><!--End t-label-->
+		<td class="t-price">
+          <span class="money">{{ ro_cart_total | money }}</span>
+          </td><!--End t-price-->
+		</tr>
+		</table>
+	<input name="shopify_customer_id" type="hidden" value="{{ customer.id }}" >
+<input name="email" type="hidden" value="{{ customer.email }}" >
+<input name="address1" type="hidden" value="{{ customer.default_address.address1 }}" >
+<input name="address2" type="hidden" value="{{ customer.default_address.address2 }}" >
+<input name="city" type="hidden" value="{{ customer.default_address.city }}" >
+<input name="company" type="hidden" value="{{ customer.default_address.company }}" >
+<input name="country" type="hidden" value="{{ customer.default_address.country }}" >
+<input name="first_name" type="hidden" value="{{ customer.default_address.first_name }}" >
+<input name="last_name" type="hidden" value="{{ customer.default_address.last_name }}" >
+<input name="phone" type="hidden" value="{{ customer.default_address.phone }}" >
+<input name="province" type="hidden" value="{{ customer.default_address.province }}" >
+<input name="zip" type="hidden" value="{{ customer.default_address.zip }}" >
+      <input type="submit" name="checkout" value="Proceed to Checkout" class="btn single-product-btn" />
+			{% comment %}Paypal and Google checkout buttons{% endcomment %}
+			  {% if additional_checkout_buttons %}
+			  <p class="additional-checkout-buttons" style="display:none">
+				{{ content_for_additional_checkout_buttons }}
+			  </p>
+			  {% endif %}
+			  <div class="clear clearfix"></div>
+			{% include 'widget-payment-methods' %}
+	</div><!--End cart-pricing-order-->
+
+
+<div id="section-free-shipping">
+	<div class="inner-wrap">
+		<div class="ic-wrap">
+			<i class="fa fa-truck"></i>
+		</div>
+		<div class="hentry">
+			{% if cart.total_price >= 9900 %} <!-- 9900 -->
+				<strong class="lrg">Hurray!</strong> your order is over $99
+				<br />You get <strong>FREE</strong> shipping!
+			{% else %}
+				{% assign amount_needed = 9900 | minus: cart.total_price %}
+				<strong class="lrg">FREE SHIPPING</strong> on orders over $99.00
+				<br />You are <strong>{{ amount_needed | money }} away!
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+</form>
+
+
+{% else %}
+
+  <div>
+    <h2 style="padding: 60px 0; text-align: center; font-size: 18px;" >It appears that your cart is currently empty!</h2>
+  </div>
+
+{% endif %}
+
+
+</div>
+
+</div>
+
+<div class="clearfix clear"></div>
+
+{% include 'cross-sell' %}
+
+<!--BEGIN RELATED PRODUCTS-->
+<div class="inner hidden">
+	<div class="product-info">
+  {% assign listing_cols = 5 %}
+  {% assign image_size = settings.homepage_listing_image_size %}
+
+<h2 class="cart-products-title">Customers Who Buy These Items Also Buy</h2>
+
+
+<div class="product-listing product-listing__cart">
+  <div class="row">
+    {% for product in collections[settings.cart_products].products limit:settings.cart_products_count %}
+      {% include 'product-grid-item' with 'listing_cols' with 'image_size' %}
+    {% endfor %}
+  </div>
+</div>
+
+</div><!--End product-info-->
+</div><!--End inner-->
+
+<!--END RELATED PRODUCTS-->
+
+			<!-- PERFECT AUDIENCE INTEGRATION START -->
+			{% include 'perfect-audience-cart' %}
+			<!-- PERFECT AUDIENCE INTEGRATION END -->
+
+

@@ -1,0 +1,10 @@
+{% comment %}
+This helper is used to proxy assets to cloudflare.
+* Heroku Proxy Box: draxe-image-proxy.herokuapp.com
+* Cloudflare Subdomain pointed: shopify-cdn.draxe.com
+
+KILL SWITCH: Remove the | remove and | replace portions to fallback to shopify's CDN if 
+
+@author: TomFuertes@gmail.com
+{% endcomment %}
+{% if asset %}{{ asset | remove: 'https:' | remove: 'http:' | replace:'//cdn.shopify.com/','//shopify-cdn.draxe.com' }}{% endif %}

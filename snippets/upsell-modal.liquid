@@ -1,0 +1,72 @@
+{% assign package = all_products['leaky-gut-supplement-kit'] %}
+{% assign packagePrice = package.price %}
+{% assign packageComparePrice = package.compare_at_price %}
+{% assign priceDiff = packageComparePrice | minus: packagePrice %}
+{% assign percentageOff = priceDiff | times: 100.0 | divided_by: packageComparePrice | floor %}
+
+{% assign bundleProduct1 =  all_products['leaky-gut-support'].compare_at_price %}
+{% assign bundleProduct2 =  all_products['probiotics'].compare_at_price %}
+
+{% assign msrpTotal = product.compare_at_price | plus: bundleProduct1 | plus: bundleProduct2 %}
+
+<div class="remodal" data-remodal-id="modal">
+  <button data-remodal-action="close" class="remodal-close"></button>
+  <div class="product-added">
+    <img src="{{ product.featured_image.src | product_img_url: 'thumb' }}" alt="{{ product.title | escape }}"/>
+    <p class="check">You've added {{ product.title }} to your cart!</p>
+  </div>
+  <div class="complete-kit">
+    <p>Complete the kit today and get {{ percentageOff }}% in savings</p>
+  </div>
+  <div class="kit-includes">
+    <span>{{ package.title }} includes:</span>
+    <div class="includes-wrap">
+      <div class="kit-info">
+        <ul>
+          <li><p class="check"><strong>1x {{ product.title }}</strong></p></li>
+          <li><span>MSRP {{ product.compare_at_price | money }}</span></li>
+        </ul>
+        <ul>
+          <li><p class="check"><strong>1x {{ all_products['leaky-gut-support'].title }}</strong></p></li>
+          <li><span>MSRP {{ all_products['leaky-gut-support'].compare_at_price | money }}</span></li>
+        </ul>
+        <ul>
+          <li><p class="check"><strong>1x {{ all_products['probiotics'].title }}</strong></p></li>
+          <li><span>MSRP {{ all_products['probiotics'].compare_at_price | money }}</span></li>
+        </ul>
+        <ul class="sum">
+          <li></li>
+          <li><p>Total: <s>{{ msrpTotal | money }}</s></p></li>
+        </ul>
+      </div>
+      <div class="kit-image">
+        <img src="{{ all_products['leaky-gut-supplement-kit'].featured_image.src | product_img_url: 'compact' }}" alt="{{ all_products['leaky-gut-supplement-kit'] | escape }}"/>
+      </div>
+    </div>
+    <div class="kit-cta">
+      <span>Add 1x {{ all_products['leaky-gut-support'].title }} and 1x {{ all_products['probiotics'].title }} to complete the kit</span>
+      <div class="button-wrap">
+        <a class="kit-btn single-product-btn add-to-cart-modal check" href="#" data-variant-qty="1" data-variant-id="{{ all_products['leaky-gut-supplement-kit'].variants[0].id }}">
+          <div>
+            <h4>Complete the Kit</h4>
+            <span>Get {{ percentageOff }}% in savings with all 3</span>
+          </div>
+        </a>
+        <div class="you-save">
+          <h4>{{ packagePrice | money }}</h4>
+
+          {% if packageComparePrice > packagePrice %}
+
+            <span class="savings">You save {{ priceDiff | money }}</span>
+
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <a class="add-to-cart-modal checkout" data-variant-qty="1" data-variant-id="{{ all_products[product.handle].variants[0].id }}">No thanks, I'd like to proceed to Checkout</a>
+    </form>
+  </div>
+</div>
+
+{% comment %}<button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
+<button data-remodal-action="confirm" class="remodal-confirm">OK</button>{% endcomment %}

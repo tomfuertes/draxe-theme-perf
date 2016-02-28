@@ -1,0 +1,30 @@
+<div class="widget widget__best-sellers">
+    <h3 class="widget_header"><i class="fa fa-leaf"></i>Best Sellers</h3>
+    <div class="widget_content">
+        <div class="product-listing product-listing__bestsellers">
+        {% for product in collections[settings.bestsellers_cat].products limit:3 %}
+            <div class="product">
+            
+            <div class="product_img">  
+                <a href="{{ product.url | within: collection }}">
+                <img src="{{ product.featured_image.src | product_img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}" />
+                </a>
+            </div>
+            
+            <div class="product_name">
+                <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+            </div>
+            
+            <div class="product_price">
+                {% if product.price_varies %}From{% endif %}
+                <span class="money">{% include 'wholesaler-product-price' %}</span>
+            </div>
+            
+			{% comment %}{% include "snippet-add-to-cart" %}{% endcomment %}
+            <a class="btn" href="{{ product.url | within: collection }}">View</a>
+              
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>

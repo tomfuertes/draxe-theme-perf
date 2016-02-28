@@ -1,0 +1,26 @@
+{
+  "folders": [{
+    "follow_symlinks": true,
+    "path": "./",
+    "folder_exclude_patterns": [
+      "tmp",
+      ".idea",
+      "log",
+      ".bundle",
+      "doc",
+      "db/seeds",
+      "coverage",
+      "bower_components",
+      "vendor/bundle",
+    ],
+    "file_exclude_patterns": [
+      "*.min.js",
+      "*.min.css",
+      "*.log",
+      "*.png",
+      "*.jpg",
+      "*.gif",
+      "nohup.out"
+    ]
+  }]
+}
