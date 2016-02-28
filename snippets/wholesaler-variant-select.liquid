@@ -1,0 +1,7 @@
+{% for variant in product.variants %}
+  {% if customer.tags contains 'Wholesaler' %}
+  {% else %}
+    {% if variant.metafields.wholesaler2.wholesale or variant.title contains '(Wholesale)' %}
+	 jQuery('option:contains(' + {{ variant.option1 | json }} + ')').remove();	 jQuery('option:contains(' + {{ variant.option2 | json }} + ')').remove();	 jQuery('option:contains(' + {{ variant.option3 | json }} + ')').remove();    {% endif %}
+  {% endif %}
+{% endfor %}

@@ -1,0 +1,177 @@
+<ul id="menu-health-menu" class="menu-secondary">
+    	
+    {% for link in linklists[settings.main_nav].links %}
+    {% assign has_sub_menu = false %}
+    {% assign has_sub_categories = false %}
+    {% assign parent_link_active = false %}
+    {% assign child_list_handle = link.title | handle %}
+    {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+    {% assign has_sub_menu = true %}
+    {% for l in linklists[child_list_handle].links %}
+    {% if page_title == l.title %}
+    {% assign parent_link_active = true %}
+    {% endif %}
+    {% endfor %}
+    {% elsif link.type == 'collection_link' and link.object.all_tags.size > 0 %}
+    {% assign has_sub_categories = true %}
+    {% endif %}
+    <li class="{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}{% if link.active or parent_link_active %} active{% endif %}{% if has_sub_menu or has_sub_categories %} has-dropdown{% endif %}">
+        <span>{{ link.title | link_to: link.url }}</span>
+      {% if has_sub_menu or has_sub_categories %}
+        <ul>
+        {% if has_sub_menu %}
+        {% for l in linklists[child_list_handle].links %}
+          <li class="{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}{% if l.active %} active{% endif %}"><a class="{% if forloop.first %}first{% elsif forloop.last %}last{% endif %}" href="{{ l.url }}">{{ l.title }}</a></li>
+        {% endfor %}
+        {% elsif has_sub_categories %}
+          {% for tag in link.object.all_tags %}
+          {% if collection == 'supplements' %}
+          <li class="{% if forloop.first %} first{% elsif forloop.last-1 %} last{% endif %}{% if current_tags contains tag %} active{% endif %}"><a class="{% if forloop.first %}first{% elsif forloop.last %}last{% endif %}" href="{{ link.url }}/{{ tag | handle }}">{{ tag }}</a></li>
+          {% else %}
+          <li class="{% if forloop.first %} first{% elsif forloop.last %} last{% endif %}{% if current_tags contains tag %} active{% endif %}"><a class="{% if forloop.first %}first{% elsif forloop.last %}last{% endif %}" href="{{ link.url }}/{{ tag | handle }}">{{ tag }}</a></li>
+          {% endif %}
+          {% endfor %}
+
+        {% endif %}
+        </ul>
+      {% endif %}
+
+    </li>
+    {% endfor %}
+    </ul><!--End menu-->
+
+
+
+<!--Static Html Backup -->
+<div class="header-btm">
+    <div class="menu-secondary-container">
+      <ul class="menu-secondary" id="menu-health-menu">
+        <li class="first active firstItem">
+            <span><a title="" href="/">Home</a></span>
+        </li>
+        <li class="">
+            <span><a title="" href="/products/collagen-protein">Get Started</a></span>
+        </li>
+        
+        <li class=" has-dropdown">
+            <span><a title="" href="/collections/top-sellers">Top Sellers</a></span>
+            <div class="nav-dropdown-cntr">
+              <div class="inner">
+                <div class="big-thumb">
+                  <figure><a href="/products/cell-detox" class="first"><img src="{{ 'demo1.jpg' | asset_url }}"></a></figure>
+                  <a href="/products/cell-detox" class="first"><span>Show Now</span></a>  
+                </div>
+                <div class="right-thumbs">
+                  <ul>
+                    <li class="first firstItem"><a href="/products/cell-detox" class="first"><img src="{{ 'demo2.jpg' | asset_url }}"><span class="title">Green Superfood</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/omega-d3-plus-astaxanthin-3-pack" class=""><img src="{{ 'demo3.jpg' | asset_url }}"><span class="title">Omega D3 with Astaxanthin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/health-foundations-pack" class=""><img src="{{ 'demo4.jpg' | asset_url }}"><span class="title">Real Food Multi-Vitamin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/healing-protein-vanilla-3-pack" class=""><img src="{{ 'demo5.jpg' | asset_url }}"><span class="title">Live Probiotics</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/cell-detox" class="first"><img src="{{ 'demo6.jpg' | asset_url }}"><span class="title">Green Superfood</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/omega-d3-plus-astaxanthin-3-pack" class=""><img src="{{ 'demo7.jpg' | asset_url }}"><span class="title">Omega D3 with Astaxanthin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/health-foundations-pack" class=""><img src="{{ 'demo8.jpg' | asset_url }}"><span class="title">Real Food Multi-Vitamin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/healing-protein-vanilla-3-pack" class=""><img src="{{ 'demo9.jpg' | asset_url }}"><span class="title">Live Probiotics</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/cell-detox" class="first"><img src="{{ 'demo1.jpg' | asset_url }}"><span class="title">Green Superfood</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/omega-d3-plus-astaxanthin-3-pack" class=""><img src="{{ 'demo11.jpg' | asset_url }}"><span class="title">Omega D3 with Astaxanthin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/health-foundations-pack" class=""><img src="{{ 'demo12.jpg' | asset_url }}"><span class="title">Real Food Multi-Vitamin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/healing-protein-vanilla-3-pack" class=""><img src="{{ 'demo3.jpg' | asset_url }}"><span class="title">Live Probiotics</span><span class="price">$100</span></a></li>
+                  </ul>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+        </li>
+        <li class=" has-dropdown">
+            <span><a title="" href="/collections/supplements">Supplements</a></span>
+            <div class="nav-dropdown-cntr">
+              <div class="inner">
+                <div class="big-thumb">
+                  <figure><a href="/products/cell-detox" class="first"><img src="{{ 'demo1.jpg' | asset_url }}"></a></figure>
+                  <a href="/products/cell-detox" class="first"><span>Show Now</span></a>  
+                </div>
+                <div class="right-thumbs">
+                  <ul>
+                    <li class="first firstItem"><a href="/products/cell-detox" class="first"><img src="{{ 'demo2.jpg' | asset_url }}"><span class="title">Green Superfood</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/omega-d3-plus-astaxanthin-3-pack" class=""><img src="{{ 'demo3.jpg' | asset_url }}"><span class="title">Omega D3 with Astaxanthin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/health-foundations-pack" class=""><img src="{{ 'demo4.jpg' | asset_url }}"><span class="title">Real Food Multi-Vitamin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/healing-protein-vanilla-3-pack" class=""><img src="{{ 'demo5.jpg' | asset_url }}"><span class="title">Live Probiotics</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/cell-detox" class="first"><img src="{{ 'demo6.jpg' | asset_url }}"><span class="title">Green Superfood</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/omega-d3-plus-astaxanthin-3-pack" class=""><img src="{{ 'demo7.jpg' | asset_url }}"><span class="title">Omega D3 with Astaxanthin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/health-foundations-pack" class=""><img src="{{ 'demo8.jpg' | asset_url }}"><span class="title">Real Food Multi-Vitamin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/healing-protein-vanilla-3-pack" class=""><img src="{{ 'demo9.jpg' | asset_url }}"><span class="title">Live Probiotics</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/cell-detox" class="first"><img src="{{ 'demo1.jpg' | asset_url }}"><span class="title">Green Superfood</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/omega-d3-plus-astaxanthin-3-pack" class=""><img src="{{ 'demo11.jpg' | asset_url }}"><span class="title">Omega D3 with Astaxanthin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/health-foundations-pack" class=""><img src="{{ 'demo12.jpg' | asset_url }}"><span class="title">Real Food Multi-Vitamin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/healing-protein-vanilla-3-pack" class=""><img src="{{ 'demo3.jpg' | asset_url }}"><span class="title">Live Probiotics</span><span class="price">$100</span></a></li>
+                  </ul>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+        </li>
+        <li class=" has-dropdown">
+            <span><a title="" href="/collections/kits">Kits</a></span>
+            <div class="nav-dropdown-cntr">
+              <div class="inner">
+                <div class="big-thumb">
+                  <figure><a href="/products/cell-detox" class="first"><img src="{{ 'demo1.jpg' | asset_url }}"></a></figure>
+                  <a href="/products/cell-detox" class="first"><span>Show Now</span></a>  
+                </div>
+                <div class="right-thumbs">
+                  <ul>
+                    <li class="first firstItem"><a href="/products/cell-detox" class="first"><img src="{{ 'demo2.jpg' | asset_url }}"><span class="title">Green Superfood</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/omega-d3-plus-astaxanthin-3-pack" class=""><img src="{{ 'demo3.jpg' | asset_url }}"><span class="title">Omega D3 with Astaxanthin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/health-foundations-pack" class=""><img src="{{ 'demo4.jpg' | asset_url }}"><span class="title">Real Food Multi-Vitamin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/healing-protein-vanilla-3-pack" class=""><img src="{{ 'demo5.jpg' | asset_url }}"><span class="title">Live Probiotics</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/cell-detox" class="first"><img src="{{ 'demo6.jpg' | asset_url }}"><span class="title">Green Superfood</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/omega-d3-plus-astaxanthin-3-pack" class=""><img src="{{ 'demo7.jpg' | asset_url }}"><span class="title">Omega D3 with Astaxanthin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/health-foundations-pack" class=""><img src="{{ 'demo8.jpg' | asset_url }}"><span class="title">Real Food Multi-Vitamin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/healing-protein-vanilla-3-pack" class=""><img src="{{ 'demo9.jpg' | asset_url }}"><span class="title">Live Probiotics</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/cell-detox" class="first"><img src="{{ 'demo1.jpg' | asset_url }}"><span class="title">Green Superfood</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/omega-d3-plus-astaxanthin-3-pack" class=""><img src="{{ 'demo11.jpg' | asset_url }}"><span class="title">Omega D3 with Astaxanthin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/health-foundations-pack" class=""><img src="{{ 'demo12.jpg' | asset_url }}"><span class="title">Real Food Multi-Vitamin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/healing-protein-vanilla-3-pack" class=""><img src="{{ 'demo3.jpg' | asset_url }}"><span class="title">Live Probiotics</span><span class="price">$100</span></a></li>
+                  </ul>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+        </li>
+        <li class="">
+            <span><a title="" href="/products/burstfit-fire">Cookbook</a></span>
+        </li>
+        <li class=" has-dropdown">
+            <span><a title="" href="/collections/burstfit">BurstFit</a></span>
+            <div class="nav-dropdown-cntr">
+              <div class="inner">
+                <div class="big-thumb">
+                  <figure><a href="/products/cell-detox" class="first"><img src="{{ 'demo1.jpg' | asset_url }}"></a></figure>
+                  <a href="/products/cell-detox" class="first"><span>Show Now</span></a>  
+                </div>
+                <div class="right-thumbs">
+                  <ul>
+                    <li class="first firstItem"><a href="/products/cell-detox" class="first"><img src="{{ 'demo2.jpg' | asset_url }}"><span class="title">Green Superfood</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/omega-d3-plus-astaxanthin-3-pack" class=""><img src="{{ 'demo3.jpg' | asset_url }}"><span class="title">Omega D3 with Astaxanthin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/health-foundations-pack" class=""><img src="{{ 'demo4.jpg' | asset_url }}"><span class="title">Real Food Multi-Vitamin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/healing-protein-vanilla-3-pack" class=""><img src="{{ 'demo5.jpg' | asset_url }}"><span class="title">Live Probiotics</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/cell-detox" class="first"><img src="{{ 'demo6.jpg' | asset_url }}"><span class="title">Green Superfood</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/omega-d3-plus-astaxanthin-3-pack" class=""><img src="{{ 'demo7.jpg' | asset_url }}"><span class="title">Omega D3 with Astaxanthin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/health-foundations-pack" class=""><img src="{{ 'demo8.jpg' | asset_url }}"><span class="title">Real Food Multi-Vitamin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/healing-protein-vanilla-3-pack" class=""><img src="{{ 'demo9.jpg' | asset_url }}"><span class="title">Live Probiotics</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/cell-detox" class="first"><img src="{{ 'demo1.jpg' | asset_url }}"><span class="title">Green Superfood</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/omega-d3-plus-astaxanthin-3-pack" class=""><img src="{{ 'demo11.jpg' | asset_url }}"><span class="title">Omega D3 with Astaxanthin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/health-foundations-pack" class=""><img src="{{ 'demo12.jpg' | asset_url }}"><span class="title">Real Food Multi-Vitamin</span><span class="price">$100</span></a></li>
+                    <li class=""><a href="/products/healing-protein-vanilla-3-pack" class=""><img src="{{ 'demo3.jpg' | asset_url }}"><span class="title">Live Probiotics</span><span class="price">$100</span></a></li>
+                  </ul>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+        </li>
+        <li class="last lastItem">
+            <span><a title="" href="/products/leaky-gut-supplement-kit">Leaky Gut</a></span>
+        </li>
+    </ul>
+	
+</div><!--End menu-secondary-container-->
+</div><!--End header-btm-->

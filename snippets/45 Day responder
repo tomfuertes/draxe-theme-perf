@@ -1,0 +1,17 @@
+<p><img alt="" src="http://cdn.shopify.com/s/files/1/0053/9952/products/Online-Store-Logo.jpg?v=1434575560" /></p>
+
+<p>Hi {{order.customer.first_name}},</p>
+
+<p>One last reminder to make sure you do not run out of your Dr. Axe supplements.</p>
+
+<p><strong>Here&rsquo;s a $10 Gift Card for your next purchase of:</strong></p>
+
+<p>{% for line in order.line_items %} {{ line.quantity }} x {{line.title }}&nbsp;</p>
+
+<p>{% endfor %}</p>
+
+<p><img alt="" src="http://cdn.shopify.com/s/files/1/0053/9952/products/blue_gift_card-10again2.png?v=1434743798" /></p>
+
+<p>Use the coupon code:&nbsp;<strong>10AGAIN &nbsp;</strong>to get a total of $10.00 off your order TODAY.</p>
+
+<p>Dr. Axe Customer Support</p>

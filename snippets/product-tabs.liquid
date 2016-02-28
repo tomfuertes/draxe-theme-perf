@@ -1,0 +1,49 @@
+{% assign tabs = product.metafields.ptabs %}
+{{ tabs['tabs'] }}
+
+<style>
+ul.fd-product-tabs {
+  border-bottom: 1px solid #1e418f;
+  display: none;
+  margin: 0 0 20px;
+  padding: 0;
+  
+}
+ul.fd-product-tabs li {
+  display: block;
+  float: left;
+  height: 30px;
+  margin-bottom: 0;
+  padding: 0;
+  width: auto;
+}
+ul.fd-product-tabs li a {
+   background: #8c9ec6 none repeat scroll 0 0;
+    border: medium none !important;
+    border-radius: 0;
+    color: #ffffff !important;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 20px;
+  margin-right:4px;
+  text-decoration:none;
+}
+ul.fd-product-tabs li a.fd-product-tab-active {
+ background: #1e418f none repeat scroll 0 0;
+}
+ul.fd-product-tabs li:first-child a.fd-product-tab-active {
+  margin-left: 0;
+}
+
+ul.fd-product-tabs:before, ul.fd-product-tabs:after {
+  content: " ";
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+}
+ul.fd-product-tabs:after {
+  clear: both;
+}
+</style>

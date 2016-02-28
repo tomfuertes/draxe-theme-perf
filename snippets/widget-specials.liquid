@@ -1,0 +1,36 @@
+<div class="widget widget__specials">
+<h3 class="widget_header"><i class="fa fa-leaf"></i>Specials</h3>
+{% capture index %}{{ 'now' | date: '%S' | times: collections[settings.specials_cat].products_count | divided_by: 60 }}{% endcapture %}
+<ul class="widget_content products">
+    {% for product in collections[settings.specials_cat].products offset:index limit:1 %}
+    <li>
+    <div>
+
+        <div class="product_img">  
+            <a href="{{ product.url | within: collection }}">
+            <img src="{{ product.featured_image.src | product_img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}" />
+            </a>
+        </div>
+
+        <div class="product_name">
+          <a href="{{ product.url | within: collection }}">{{ product.title | truncate:30 }}</a>
+        </div>
+
+    	<div class="product_desc">{{ product.description | truncate: 80 | strip_html }}</div>
+
+        <div class="product_price clearfix">
+			<span class="price">
+                {% if product.price_varies %}From{% endif %}
+                <span class="money">{% include 'wholesaler-product-price' %}</span>
+                {% if product.compare_at_price > product.price %}
+                <span class="money compare-at-price">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+			</span>
+            <a class="btn" href="{{ collections[settings.specials_cat].url }}">All specials</a>
+        </div>
+
+    </div>
+    </li>
+    {% endfor %}
+</ul>
+</div>

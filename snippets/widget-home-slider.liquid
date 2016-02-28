@@ -1,0 +1,24 @@
+<div id="slider">
+    <div class="slider-wrap">
+        {% if settings.slide1_toggle %}
+            <div class="slide">
+                <a href="{{ settings.slide1_link }}"><img src="{{ 'slide1_image.png' | asset_url }}" alt="{{ settings.slide1_title }}" /></a>
+            </div>
+        {% endif %}
+        {% if settings.slide2_toggle %}
+            <div class="slide">
+                <a href="{{ settings.slide2_link }}"><img src="{{ 'slide2_image.png' | asset_url }}" alt="{{ settings.slide2_title }}" /></a>
+            </div>
+        {% endif %}
+        {% if settings.slide3_toggle %}
+            <div class="slide">
+                <a href="{{ settings.slide3_link }}"><img src="{{ 'slide3_image.png' | asset_url }}" alt="{{ settings.slide3_title }}" /></a>
+            </div>
+        {% endif %}
+        {% if settings.slide4_toggle %}
+            <div class="slide">
+                <a href="{{ settings.slide4_link }}"><img src="{{ 'slide4_image.png' | asset_url }}" alt="{{ settings.slide4_title }}" /></a>
+            </div>
+        {% endif %}
+    </div>
+</div>

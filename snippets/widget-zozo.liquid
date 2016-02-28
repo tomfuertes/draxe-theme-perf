@@ -1,0 +1,93 @@
+
+
+{% if settings.slider_toggle %}
+<!-- Zozo Tabs Start-->
+
+		
+        <div id="tabbed-nav">
+
+            <!-- Tab Navigation Menu -->
+            <ul>
+                {% if settings.slide1_toggle %}<li><a><img class="z-link-img" src="{{ 'slide1_image.png' | asset_url }}" alt="{{ settings.slide1_title }}"/> {{ settings.slide1_title" }}</a></li>{% endif %}
+                {% if settings.slide2_toggle %}<li><a><img class="z-link-img" src="{{ 'slide2_image.png' | asset_url }}" alt="{{ settings.slide2_title }}"/> {{ settings.slide2_title" }}</a></li>{% endif %}
+                {% if settings.slide3_toggle %}<li><a><img class="z-link-img" src="{{ 'slide3_image.png' | asset_url }}" alt="{{ settings.slide3_title }}"/> {{ settings.slide3_title" }}</a></li>{% endif %}
+                {% if settings.slide4_toggle %}<li><a><img class="z-link-img" src="{{ 'slide4_image.png' | asset_url }}" alt="{{ settings.slide4_title }}"/> {{ settings.slide4_title" }}</a></li>{% endif %}
+            </ul>
+
+            <!-- Content container -->
+            <div>
+				
+				{% if settings.slide1_toggle %}
+                <!-- Slide 1 -->
+                <div>
+<!-- 					<img src="{{ 'slide1_image.png' | asset_url }}" alt="{{ settings.slide1_title }}"/> -->
+                    <div class="z-inner-content">
+					<h4>{{ settings.slide1_title" }}</h4>
+                    <p>{{ settings.slide1_text" }}</p>	
+					<a class="btn yellow-btn" href="{{ settings.slide1_link" }}" />Shop Now</a>				
+					</div>
+                </div>
+				{% endif %}
+				
+				{% if settings.slide2_toggle %}
+                <!-- Slide 2 -->
+                <div>
+					<img src="{{ 'slide2_image.png' | asset_url }}" alt="{{ settings.slide2_title }}"/>
+                    <div class="z-inner-content">
+					<h4>{{ settings.slide2_title" }}</h4>
+                    <p>{{ settings.slide2_text" }}</p>
+					<a class="btn yellow-btn" href="{{ settings.slide2_link" }}" />Shop Now</a>						
+					</div>
+                </div>
+				{% endif %}
+
+                {% if settings.slide3_toggle %}
+				<!-- Slide 3 -->
+                <div>
+					<img src="{{ 'slide3_image.png' | asset_url }}" alt="{{ settings.slide3_title }}"/>
+                    <div class="z-inner-content">
+					<h4>{{ settings.slide3_title" }}</h4>
+                    <p>{{ settings.slide3_text" }}</p>
+					<a class="btn yellow-btn" href="{{ settings.slide3_link" }}" />Shop Now</a>						
+					</div>
+                </div>
+				{% endif %}
+
+                {% if settings.slide4_toggle %}
+				<!-- Slide 4 -->
+                <div>
+					<img src="{{ 'slide4_image.png' | asset_url }}" alt="{{ settings.slide4_title }}"/>
+                    <div class="z-inner-content">
+					<h4>{{ settings.slide4_title" }}</h4>
+                    <p>{{ settings.slide4_text" }}</p>	
+					<a class="btn yellow-btn" href="{{ settings.slide4_link" }}" />Shop Now</a>					
+					</div>
+                </div>
+				{% endif %}
+
+
+            </div>
+
+        </div>
+        <!-- Zozo Tabs End-->
+
+
+<script>
+        $(document).ready(function () {
+            /*  jQuery activation and setting options. Visit docs.zozoui.com/tabs for 
+                complete documentation, option list, public methods, callback events.*/
+            $("#tabbed-nav").zozoTabs({
+                theme: "black",
+                orientation: "vertical",
+                position: "top-left",
+                size: "medium",
+                animation: {
+                    easing: "easeInOutExpo",
+                    duration: 400,
+                    effects: "slideV",
+					bordered: false 
+                }
+            });
+        });
+    </script>
+{% endif %}

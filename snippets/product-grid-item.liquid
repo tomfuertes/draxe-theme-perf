@@ -1,0 +1,47 @@
+<div class="product product__product-grid-item col-sm-2-x">
+    {% include 'shappify-sales-icon-collection' %}
+    <div class="product_img">
+        <a href="{{ product.url | within: collection }}">
+        <img src="{{ product.featured_image.src | product_img_url: image_size }}" alt="{{ product.featured_image.alt | escape }}" />
+        </a>
+    </div>
+    <div class="post-wrap">
+        <div class="rating-wrap">
+            <div class="yotpo bottomLine"
+                data-appkey="SznxyQVuSpG8D03uuWfDCoeBWElC0j4bgICDZHCW"
+                data-domain="{{ shop.permanent_domain | escape }}"
+                data-product-id="{{ product.id }}"
+                data-product-models="{{ product.id }}"
+                data-name="{{ product.title | escape }}"
+                data-url="{{ page.url }}"
+                data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
+                data-description="{{ product.description | escape }}"
+                data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
+            </div>
+        </div>
+
+        <div class="product_name"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></div>
+
+        <div class="product_price">
+            <div class="product-price-value">
+                <span class="money">
+                    {% if product.price_varies %}From{% endif %}
+                    {% include 'wholesaler-product-price' %}
+                </span>
+                {% if product.compare_at_price_max > product.price %}
+                    <span class="compare">savings: {{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span>
+                {% endif %}
+            </div>
+            <div class="product-stock-add">
+                <div class="product-stock">
+                    {% if product.available %}
+                        <span style="font-size: 11px; font-weight: bold; padding-left: 16px; text-align:left; background: url('https://cdn.shopify.com/s/files/1/0053/9952/t/2/assets/smcheck.jpg') no-repeat; color:#008000;">In Stock</span>
+                    {% else %}
+                        <span style="font-size: 11px; font-weight: bold; padding-left: 16px; color:#da3e3e;">Out of Stock</span>
+                    {% endif %}
+                </div>
+                {% include "snippet-add-to-cart" %}
+            </div><!--End product-stock-add-->
+        </div>
+    </div>
+</div>

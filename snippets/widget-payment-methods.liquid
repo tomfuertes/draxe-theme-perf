@@ -1,0 +1,12 @@
+<div id="payment-methods">
+  <ul>
+    {% if settings.show_amex %} <li>{{ 'cc-amex.png' | asset_url | img_tag }}</li> {% endif %}
+    {% if settings.show_discover %}   <li>{{ 'cc-discover.png' | asset_url | img_tag }}</li> {% endif %}
+    {% if settings.show_visa %}       <li>{{ 'cc-visa.png' | asset_url | img_tag }}</li> {% endif %}
+    {% if settings.show_mastercard %} <li>{{ 'cc-mastercard.png' | asset_url | img_tag }}</li> {% endif %}
+    {% if settings.show_maestro %}    <li>{{ 'cc-maestro.png' | asset_url | img_tag }}</li> {% endif %}
+    {% if settings.show_cirrus %}    <li> {{ 'cc-cirrus.png' | asset_url | img_tag }}</li> {% endif %}
+    {% if settings.show_paypal %}    <li> {{ 'cc-paypal.png' | asset_url | img_tag }}</li> {% endif %}
+    {% if settings.show_google %}     <li>{{ 'cc-google.png' | asset_url | img_tag }}</li> {% endif %}
+  </ul>
+</div>

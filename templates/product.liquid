@@ -1,0 +1,380 @@
+<div itemscope itemtype="http://schema.org/Product" class="product-scope">
+
+  {% include 'shappify-sales-clock' %}
+
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
+  <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" />
+
+  {% assign product_vendor_handle = product.vendor | handle %}
+  {% comment %}
+    Do we have a collection that has the same name as our product vendor name?
+    If we do, let's have the vendor link point to it.
+    If not, we will point to the automatic vendor collection.
+  {% endcomment %}
+
+  {% if collections[product_vendor_handle].handle == product_vendor_handle %}
+    {% assign vendor_url = collections[product_vendor_handle].url %}
+  {% else %}
+    {% assign vendor_url = product.vendor | url_for_vendor %}
+  {% endif %}
+
+  <div class="product_wrap">
+
+    <div class="row">
+
+      <div class="product-top-info">
+
+        <div id="product_image-container" class="col-sm-4">
+
+        {% if product.images.size == 0 %}
+          <div class="product_image">
+            <img src="{{ '' | product_img_url: 'large' }}" alt="" />
+          </div>
+        {% else %}
+
+        {% if product.images.size > 1 %}
+          <div id="bx-pager" class="product_image-additioanl">
+            <a href='' data-slide-index="0">
+              <img src="{{ product.featured_image.src | product_img_url: 'compact' }}" alt="{{ product.title | escape }}"/>
+            </a>
+            {% for image in product.images offset:1 %}
+            <a href='' data-slide-index="{{ forloop.index }}">
+              <img src="{{ image.src | product_img_url: 'compact' }}" alt="{{ product.title | escape }}"/>
+            </a>
+            {% endfor %}
+          </div>
+
+          <div class="product_image">
+            <ul class="bxslider">
+              <li>
+                <a rel="product_images" class="fancybox" href="{{ product.featured_image.src | product_img_url: 'master' }}" title="{{ product.title | escape }}">
+                  <img src="{{ product.featured_image.src | product_img_url: 'large' }}" alt="{{ product.title | escape }}"/>
+                </a>
+              </li>
+              {% for image in product.images offset:1 %}
+                <li>
+                  <a rel="product_images" class="fancybox" href="{{ image.src | product_img_url: 'master' }}" title="{{ product.title | escape }}">
+                    <img src="{{ image.src | product_img_url: 'large' }}" alt="{{ product.title | escape }}"/>
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div><!-- / .product_image -->
+
+        {% else %}
+
+          <div class="product_image">
+            <a rel="product_images" class="fancybox" href="{{ product.featured_image.src | product_img_url: 'master' }}" title="{{ product.title | escape }}">
+              <img src="{{ product.featured_image.src | product_img_url: 'large' }}" alt="" />
+            </a>
+          </div>
+
+        {% endif %}
+
+      {% endif %}
+
+    </div><!-- / #product_image-container -->
+
+    <div class="product-right col-sm-8">
+      {% if product.available %}
+        {% assign hide_default_title = false %}
+        {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+          {% assign hide_default_title = true %}
+        {% endif %}
+        {% include 'shappify-sales-icon-product' %}
+
+        <form action="/cart/add" method="post" enctype="multipart/form-data" class='form-horizontal' id="product-actions">
+
+          <div class="options clearfix">
+
+          <!-- TODO: Eventually fix this like Amazon with title inline with action box -->
+          <h1 itemprop="name" class="product_name">{{ product.title }}
+            <div class="socailshare">
+              <span class='st_email'>Share</span>
+              <span class='st_facebook'></span>
+              <span class='st_pinterest'></span>
+            </div>
+          </h1>
+
+          <div class="product-meta">
+            <div id="product_price_wrapper">
+
+              <div class="yotpo bottomLine"
+              data-appkey="SznxyQVuSpG8D03uuWfDCoeBWElC0j4bgICDZHCW"
+              data-domain="{{ shop.permanent_domain | escape }}"
+              data-product-id="{{ product.id }}"
+              data-product-models="{{ product.id }}"
+              data-name="{{ product.title | escape }}"
+              data-url="{{ page.url }}"
+              data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
+              data-description="{{ product.description | escape }}"
+              data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
+              </div>
+
+              {% comment %}
+                <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+              {% endcomment %}
+
+              <div id="product_price" class="product-price {{ product.id }}" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                <span class="price product-price"></span>
+                <meta itemprop="price" content="{{ product.price | money }}">
+                <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+              </div>
+
+              {% if product.compare_at_price_max > product.price %}
+                {% assign minPrice = product.price_min %}
+                {% assign RRP = product.compare_at_price_min %}
+                {% assign youSave = RRP | minus:minPrice %}
+                {% assign youSavePerc = youSave | times:100 | divided_by:RRP %}
+                <div class="product-price">
+                  <span class="price-label savings">You Save:</span>
+                  <span class="money savings">{{ youSave | money }} ({{ youSavePerc | round:1 }}%)</span>
+                </div>
+              {% endif %}
+
+            </div><!-- / product-price-wrapper-->
+
+            <div class="product-stock">
+            {% if variant.inventory_quantity <= 0 and variant.available and variant.inventory_management != '' %}
+              <span style="font-size: 18px; margin: 15px 0 10px; display: inline-block;color:#da3e3e;">Out of Stock.</span>
+            {% else %}
+              <span style="font-size: 18px; margin: 15px 0 10px; color:#008000; display: inline-block;">In Stock.</span>
+            {% endif %}
+            </div>
+
+            {% if product.available %}
+              {% include 'subscription-product' %}
+            {% endif %}
+
+          </form>
+
+        {% else %}
+
+          <div>
+            <div id="purchase">
+              <p><strong>Sold out.</strong></p>
+              {% endif %}
+
+              <div class="short-description">
+                {% include 'product-tabs' %}
+              </div>
+              <div class="clearfix"></div>
+
+              {% if settings.show_ads %}
+                <div class="adsection">{{ settings.ad_content }}</div>
+              {% endif %}
+
+            </div><!--End product-meta-->
+
+            <div id="purchase">
+
+              <input name="shopify_customer_id" type="hidden" value="{{ customer.id }}" >
+              <input name="email" type="hidden" value="{{ customer.email }}" >
+              <input name="address1" type="hidden" value="{{ customer.default_address.address1 }}" >
+              <input name="address2" type="hidden" value="{{ customer.default_address.address2 }}" >
+              <input name="city" type="hidden" value="{{ customer.default_address.city }}" >
+              <input name="company" type="hidden" value="{{ customer.default_address.company }}" >
+              <input name="country" type="hidden" value="{{ customer.default_address.country }}" >
+              <input name="first_name" type="hidden" value="{{ customer.default_address.first_name }}" >
+              <input name="last_name" type="hidden" value="{{ customer.default_address.last_name }}" >
+              <input name="phone" type="hidden" value="{{ customer.default_address.phone }}" >
+              <input name="province" type="hidden" value="{{ customer.default_address.province }}" >
+              <input name="zip" type="hidden" value="{{ customer.default_address.zip }}" >
+
+              {% include 'bold-ro' with product %}
+              <div class="prod-variants" style="display:none;margin-bottom:24px;">
+                <h4 style="margin-bottom:8px;">Choose an Option:</h4>
+
+                <select id="product-select" name="id" data-productid="{{product.id}}">
+                {% for variant in product.variants %}
+                  <option value="{{ variant.id }}" data-price="{{ variant.price | money_without_currency | remove: ','}}">{{ variant.title }} - {{ variant.price | money }}</option>
+                {% endfor %}
+                </select>
+
+              </div>
+
+              {% if product.variants.size > 1 %}
+                <div class="buy_title">Choose An Option</div>
+                  <div class="buy-option">
+                  {% for variant in product.variants %}
+                    <label>
+                      <input type="radio" name="buy-option" data-productid="{{product.id}}" value="{{ variant.title }}" data-price="{{ variant.price | money_without_currency | remove: ','}}">{{ variant.title }}
+                    </label>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              <label for="quantity">Qty:</label>
+              <select id="quantity" name="quantity" class="form-control input-small">
+              {% for i in (1..30) %}
+                <option value="{{ i }}">{{ i }}</option>
+              {% endfor %}
+              </select>
+              <button class="btn btn-cart btn-block single-product-btn addtocart" type="submit" id="add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+
+            </div><!--END #purchase-->
+
+          </div><!-- /.options -->
+
+        </div>
+
+      </div><!--End product-top-info-->
+
+      <div class="inner">
+      {% if collection %}
+        {% include 'related-products' %}
+      {% endif %}
+      </div>
+
+      <div class="inner">
+        <div class="product-info">
+          <div class="product_details hidden">
+            <div class="product_type">type: {{ product.type | link_to_type }}</div>
+            <div class="product_vendor">Vendor: {{ product.vendor | link_to_vendor }}</div>
+          </div>
+
+          <div id="product_description" class="col-sm-6 rte">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="active" role="presentation"><a href="#description" aria-controls="messages" role="tab" data-toggle="tab">Product Description</a></li>
+              <li role="presentation" class="hide"><a href="#nutri-info" aria-controls="settings" role="tab" data-toggle="tab">Nutritional Info</a></li>
+            </ul>
+
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="description">{{ product.description }}</div>
+              <div role="tabpanel" class="tab-pane hide" id="nutri-info">Nutrition</div>
+            </div>
+
+          </div>
+
+          <!-- Product Review Start -->
+          {% if product.metafields.yotpo.reviews_count and product.metafields.yotpo.reviews_count != "0" %}
+            <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+              <meta itemprop="itemReviewed" content="{{ product.title }}">
+              <meta itemprop="ratingValue" content="{{ product.metafields.yotpo.reviews_average }}">
+              <meta itemprop="ratingCount" content="{{ product.metafields.yotpo.reviews_count }}">
+            </span>
+          {% endif %}
+
+          <div id="product_reviews" class="col-sm-6 rte">
+            <h4 class="main-title"><span>Reviews</span></h4>
+            <div class="yotpo yotpo-main-widget"
+            data-product-id="{{ product.id }}"
+            data-name="{{ product.title | escape }}"
+            data-url="{{ shop.url }}{{ product.url }}"
+            data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}"
+            data-description="{{ product.description | escape }}"></div>
+          </div>
+          <div class="clearfix"></div>
+        </div><!-- / .product-info -->
+
+      </div><!-- / .inner -->
+
+      <div class="row-fluid">
+        <div class="span12">
+
+        {% if collection %}
+          {% if collection.previous_product or collection.next_product %}
+            <div class="pagination pagination__product">
+              <ul>
+              {% if collection.previous_product %}
+                {% capture prev_url %}{{ collection.previous_product}}#content{% endcapture %}
+                <li class="left-arrow"><span class="left">{{ '&larr; Previous Product' | link_to: prev_url }}</span></li>
+              {% endif %}
+              {% if collection.next_product %}
+                {% capture next_url %}{{ collection.next_product}}#content{% endcapture %}
+                <li class="right-arrow"><span class="right">{{ 'Next Product &rarr;' | link_to: next_url }}</span></li>
+              {% endif %}
+              </ul>
+            </div>
+          {% endif %}
+        {% endif %}
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+{% comment %}
+  {% include 'cross-sell' %}
+{% endcomment %}
+
+<script>
+jQuery(function($) {
+  $('.bxslider').bxSlider({
+    pagerCustom: '#bx-pager',
+    onSliderLoad: function(){
+      $(".bxslider").css("visibility", "visible");
+    }
+  });
+
+  $("a.fancybox").fancybox({
+    'transitionIn'  : 'elastic',
+    'transitionOut' : 'elastic',
+    'speedIn'       : 600,
+    'speedOut'      : 200,
+    'overlayShow'   : true
+  });
+});
+</script>
+
+{% if product.available %}
+
+  <script>
+  jQuery(document).ready(function($){
+    jQuery(".one_time_div span").append("&nbsp;&nbsp;&nbsp; (<span class='new_discounted_price'>{{ product.price | money }}</span>)");
+    new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
+    {% include 'wholesaler-variant-select' %}
+    // Add label if only one product option and it isn't 'Title'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+      $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
+    {% endif %}
+
+    // Auto-select first available variant on page load.
+    {% assign found_one_in_stock = false %}
+    {% for variant in product.variants %}
+      {% if variant.available and found_one_in_stock == false %}
+        {% assign found_one_in_stock = true %}
+        {% for option in product.options %}
+          $('.single-option-selector:eq({{ forloop.index0 }})').val({{ variant.options[forloop.index0] | json }}).trigger('change');
+        {% endfor %}
+        {% if customer.tags contains 'Wholesaler' %}
+          $('.single-option-selector').prop('selectedIndex', 1).trigger('change');
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  });
+
+  var selectCallback = function(variant, selector) {
+    if (variant && variant.available) {
+      jQuery('#add-to-cart').removeAttr('disabled').removeClass('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
+
+      if(variant.price < variant.compare_at_price) {
+        jQuery('#product_price .price').html('<span class="price-label msrp">List Price:</span><span class="money compare-at-price">' + Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}") + '</span><br /><span class="price-label your-price">Price:</span><span class="money your-price">' + Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + '</span>');
+      } else {
+        jQuery('#product_price .price').html('<span class="price-label your-price">Price:</span><span class="money your-price">' + Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + '</span>');
+      }
+    } else {
+      jQuery('#add-to-cart').addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
+      var message = variant ? "Sold Out" : "Unavailable";
+      jQuery('#product_price .price').text(message);
+    }
+  };
+  </script>
+
+{% endif %}
+
+<!-- PERFECT AUDIENCE INTEGRATION START -->
+{% include 'perfect-audience-product' %}
+<!-- PERFECT AUDIENCE INTEGRATION END -->
+
+<script type="text/javascript" src="https://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "04b5c486-8e5a-41a3-b15d-0cd75e0abf6e", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
+<script>
+  // push data to shopify
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ productId: '{{ product.variants.first.id }}' });
+</script>

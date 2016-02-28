@@ -1,0 +1,12 @@
+                    {% if customer.tags contains 'Wholesaler' %}
+                        {{ product.price | money }}
+                    {% else %}
+                        {% assign pricemin = 1000000000000000000000000 %}
+                        {% for variant in product.variants %}
+                            {% if variant.metafields.wholesaler2.wholesale %}
+                            {% else %}
+                              {% if variant.price < pricemin %}{% assign pricemin = variant.price %}{% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {{ pricemin | money }}
+                    {% endif %}
