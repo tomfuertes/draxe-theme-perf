@@ -2,7 +2,7 @@
 (function() {
 
   var $window = $(window);
-  $window.once('nav-lazyload', load); // listen
+  $window.one('nav-lazyload', load); // listen
 
   // don't load ever on mobile until resize
   if (window.innerWidth <= 800) {
@@ -17,7 +17,7 @@
     if (/nav_cached *= *true/i.test(document.cookie)) {
       trigger();
     } else {
-      $('#menu-health-menu .has-dropdown').once('mouseenter', trigger);
+      $('#menu-health-menu').one('mouseenter', '.has-dropdown', trigger);
       $(window).on('load.lazyload', function() {
         setTimeout(function() {
           trigger();
