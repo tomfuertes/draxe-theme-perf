@@ -1,4 +1,6 @@
-// (c) Copyright 2009 Jaded Pixel. Author: Caroline Schnapp. All Rights Reserved.
+/*!
+ * // (c) Copyright 2009 Jaded Pixel. Author: Caroline Schnapp. All Rights Reserved.
+ */
 
 /*
 
@@ -11,21 +13,21 @@ for its callback to send your 3rd request, etc.
 */
 
 /**
- * Modified by Mitchell Amihod 
+ * Modified by Mitchell Amihod
  *  We make some mods. consider them feedback :) See comments/commit messages
  * Changes include:
  *      addItemFromForm: allow for passing in of form element, OR string selector
  *      updateCartFromForm: allow for passing in of form element, OR string selector
  *
- * To see how I make use of these changes, see [link to ajaxify-shop.js] 
- * 
+ * To see how I make use of these changes, see [link to ajaxify-shop.js]
+ *
  * Sept 02, 2010
  */
 if ((typeof Shopify) === 'undefined') {
   Shopify = {};
 }
 
-/* 
+/*
 
 Override so that Shopify.formatMoney returns pretty
 money values instead of cents.
@@ -34,7 +36,7 @@ money values instead of cents.
 
 Shopify.money_format = '$ {{amount}}';
 
-/* 
+/*
 
 Events (override!)
 
@@ -44,7 +46,7 @@ Example override:
   Shopify.onItemAdded = function(line_item) {
     $('message').update('Added '+line_item.title + '...');
   }
-  
+
 */
 
 Shopify.onError = function(XMLHttpRequest, textStatus) {
@@ -57,7 +59,7 @@ Shopify.onError = function(XMLHttpRequest, textStatus) {
 
 Shopify.onCartUpdate = function(cart) {
   alert('There are now ' + cart.item_count + ' items in the cart.');
-};  
+};
 
 Shopify.onItemAdded = function(line_item) {
   alert(line_item.title + ' was added to your shopping cart.');
@@ -69,7 +71,7 @@ Shopify.onProduct = function(product) {
 
 /* Tools */
 
-/* 
+/*
 Examples of call:
 Shopify.formatMoney(600000, '&euro;{{amount_with_comma_separator}} EUR')
 Shopify.formatMoney(600000, '&euro;{{amount}} EUR')
@@ -96,17 +98,17 @@ Shopify.formatMoney = function(cents, format) {
   case 'amount_with_comma_separator':
     value = floatToString(cents/100.0, 2).replace(/\./, ',').replace(/(\d+)(\d{3}[\.,]?)/,'$1.$2');
     break;
-  }    
+  }
   return formatString.replace(patt, value);
 };
 
 Shopify.resizeImage = function(image, size) {
   try {
     if(size == 'original') { return image; }
-    else {      
+    else {
       var matches = image.match(/(.*\/[\w\-\_\.]+)\.(\w{2,4})/);
       return matches[1] + '_' + size + '.' + matches[2];
-    }    
+    }
   } catch (e) { return image; }
 };
 
@@ -122,7 +124,7 @@ Shopify.addItem = function(variant_id, quantity, callback) {
     url: '/cart/add.js',
     data: 'quantity=' + quantity + '&id=' + variant_id,
     dataType: 'json',
-    success: function(line_item) { 
+    success: function(line_item) {
       if ((typeof callback) === 'function') {
         callback(line_item);
       }
@@ -144,7 +146,7 @@ Shopify.addItem = function(variant_id, quantity, callback) {
 //This makes it a bit more flexible. Every form doesn't need an id.
 //Once you are having someone pass in an id, might as well make it selector based, or pass in the element itself.
 //Since you are just wrapping it in a jq(). The same rationale is behind the change for updateCartFromForm
-//@param HTMLElement the form element which was submitted. Or you could pass in a string selector such as the form id. 
+//@param HTMLElement the form element which was submitted. Or you could pass in a string selector such as the form id.
 //@param function callback callback fuction if you like, but I just override Shopify.onItemAdded() instead
 Shopify.addItemFromForm = function(form, callback) {
     var params = {
@@ -152,7 +154,7 @@ Shopify.addItemFromForm = function(form, callback) {
       url: '/cart/add.js',
       data: jQuery(form).serialize(),
       dataType: 'json',
-      success: function(line_item) { 
+      success: function(line_item) {
         if ((typeof callback) === 'function') {
           callback(line_item, form);
         }
@@ -204,7 +206,7 @@ Shopify.changeItem = function(variant_id, quantity, callback) {
     url: '/cart/change.js',
     data:  'quantity='+quantity+'&id='+variant_id,
     dataType: 'json',
-    success: function(cart) { 
+    success: function(cart) {
       if ((typeof callback) === 'function') {
         callback(cart);
       }
@@ -228,7 +230,7 @@ Shopify.removeItem = function(variant_id, callback) {
     url: '/cart/change.js',
     data:  'quantity=0&id='+variant_id,
     dataType: 'json',
-    success: function(cart) { 
+    success: function(cart) {
       if ((typeof callback) === 'function') {
         callback(cart);
       }
@@ -254,7 +256,7 @@ Shopify.clear = function(callback) {
     url: '/cart/clear.js',
     data:  '',
     dataType: 'json',
-    success: function(cart) { 
+    success: function(cart) {
       if ((typeof callback) === 'function') {
         callback(cart);
       }
@@ -274,9 +276,9 @@ Shopify.clear = function(callback) {
 // ---------------------------------------------------------
 //Allow use of form element instead of id.
 //This makes it a bit more flexible. Every form doesn't need an id.
-//Once you are having someone pass in an id, might as well make it selector based, or pass in the element itself, 
+//Once you are having someone pass in an id, might as well make it selector based, or pass in the element itself,
 //since you are just wrapping it in a jq().
-//@param HTMLElement the form element which was submitted. Or you could pass in a string selector such as the #form_id. 
+//@param HTMLElement the form element which was submitted. Or you could pass in a string selector such as the #form_id.
 //@param function callback callback fuction if you like, but I just override Shopify.onCartUpdate() instead
 Shopify.updateCartFromForm = function(form, callback) {
   var params = {

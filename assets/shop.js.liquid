@@ -1,7 +1,8 @@
+/*! shop.js.liquid */
 jQuery(function($){
 
-  $('html').removeClass('no-js'); 
-  
+  $('html').removeClass('no-js');
+
   $('ul.styles > li').click(function(){
       var className = $(this).attr('class');
       $('body').removeClass('theme-style-0 theme-style-1 theme-style-2 theme-style-3');
@@ -10,7 +11,7 @@ jQuery(function($){
 
   $('li:last-child, .product-listing > div:last-child').addClass('lastItem');
   $('li:first-child, .product-listing > div:first-child').addClass('firstItem');
-  
+
 
   /* Dropdown menu */
   $('ul.sf-menu').supersubs({
@@ -49,7 +50,7 @@ jQuery(function($){
     if ($(this).val() === '') {
       $(this).val($(this).attr('placeholder')).addClass('hint');
     }
-  });                    
+  });
 
   /* Form validation JS */
   /*==========================*/
@@ -63,10 +64,10 @@ jQuery(function($){
       $(this).val('').removeClass('hint');
     });
     return true;
-  }); 
- 
-   
-   /*Form styles*/  
+  });
+
+
+   /*Form styles*/
   $('.address_table form, .customer_address form').addClass('form-horizontal');
 
 

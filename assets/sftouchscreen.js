@@ -1,8 +1,8 @@
-/*
+/*!
  * sf-Touchscreen v1.0b - Provides touchscreen compatibility for the jQuery Superfish plugin. - LAST UPDATE: MARCH 23rd, 2011
  *
  * Developer's notes:
- * Built as a part of the Superfish project for Drupal (http://drupal.org/project/superfish) 
+ * Built as a part of the Superfish project for Drupal (http://drupal.org/project/superfish)
  * Found any bug? have any cool ideas? contact me right away! http://drupal.org/user/619294/contact
  *
  * jQuery version: 1.3.x or higher.

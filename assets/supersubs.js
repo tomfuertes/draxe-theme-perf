@@ -1,17 +1,6 @@
-
-/*
+/*!
  * Supersubs v0.3b - jQuery plugin
  * Copyright (c) 2013 Joel Birch
- *
- * Dual licensed under the MIT and GPL licenses:
- * 	http://www.opensource.org/licenses/mit-license.php
- * 	http://www.gnu.org/licenses/gpl.html
- *
- *
- * This plugin automatically adjusts submenu widths of suckerfish-style menus to that of
- * their longest list item children. If you use this, please expect bugs and report them
- * to the jQuery Google Group with the word 'Superfish' in the subject line.
- *
  */
 
 ;(function($){ // $ will refer to jQuery within this closure
@@ -37,7 +26,7 @@
 			// remove em dash
 			$('#menu-fontsize').remove();
 			// loop through each ul in menu
-			$ULs.each(function(i) {	
+			$ULs.each(function(i) {
 				// cache this ul
 				var $ul = $(this);
 				// get all (li) children of this ul
@@ -78,7 +67,7 @@
 					$childUl.css(offsetDirection,'100%');
 				});
 			}).hide();
-			
+
 		});
 	};
 	// expose defaults
@@ -87,5 +76,5 @@
 		maxWidth		: 25,		// requires em unit.
 		extraWidth		: 0			// extra width can ensure lines don't sometimes turn over due to slight browser differences in how they round-off values
 	};
-	
+
 })(jQuery); // plugin code ends
