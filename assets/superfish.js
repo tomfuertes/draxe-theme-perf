@@ -1,4 +1,4 @@
-/*!
+/*!@preserve
  * Superfish v1.7.2 - jQuery menu widget
  * Copyright (c) 2013 Joel Birch
  *
