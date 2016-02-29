@@ -1,4 +1,4 @@
-/*!@preserve
+/*@preserve
  * Supersubs v0.3b - jQuery plugin
  * Copyright (c) 2013 Joel Birch
  */

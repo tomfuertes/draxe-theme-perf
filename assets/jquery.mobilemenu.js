@@ -1,4 +1,4 @@
-/*!@preserve
+/*@preserve
  * jQuery Mobile Menu
  * Turn unordered list menu into dropdown select menu
  * version 1.0(31-OCT-2011)

@@ -1,4 +1,4 @@
-/*!@preserve fancySelect.js */
+/*@preserve fancySelect.js */
 (function() {
   var $;
 

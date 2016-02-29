@@ -1,4 +1,4 @@
-/*!@preserve
+/*@preserve
  * sf-Touchscreen v1.0b - Provides touchscreen compatibility for the jQuery Superfish plugin. - LAST UPDATE: MARCH 23rd, 2011
  *
  * Developer's notes:

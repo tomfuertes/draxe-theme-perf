@@ -1,4 +1,4 @@
-/*!@preserve
+/*@preserve
  * // (c) Copyright 2009 Jaded Pixel. Author: Caroline Schnapp. All Rights Reserved.
  */
 

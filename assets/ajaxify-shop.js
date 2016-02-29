@@ -1,4 +1,4 @@
-/*!@preserve
+/*@preserve
  * Shopify Ajaxify Shop.
  *
  * @uses Modified Shopify jQuery API (link to it)
