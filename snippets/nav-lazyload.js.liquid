@@ -1,0 +1,45 @@
+<!----><script>!0; // jshint ignore:line
+(function() {
+
+  var $window = $(window);
+  $window.once('nav-lazyload', load); // listen
+
+  // don't load ever on mobile until resize
+  if (window.innerWidth <= 800) {
+    $(window).on('resize', function respond() {
+      if (window.innerWidth > 800) {
+        trigger();
+      }
+    });
+  } else {
+    // else on desktop, load asap if from cache
+    // or queue on hover or windowLoad (whichever first)
+    if (/nav_cached *= *true/i.test(document.cookie)) {
+      trigger();
+    } else {
+      $('#menu-health-menu .has-dropdown').once('mouseenter', trigger);
+      $(window).on('load.lazyload', function() {
+        setTimeout(function() {
+          trigger();
+        }, 50);
+      });
+    }
+  }
+
+  /*jshint latedef:false*/
+  function trigger() {
+    $window.trigger('nav-lazyload');
+  }
+
+  function load() {
+    var $images = $('#menu-health-menu img[data-src]');
+    $images.attr('src', function() {
+      var $img = $(this);
+      var src = $img.attr('data-src');
+      $img.removeAttr('data-src');
+      return src;
+    });
+    document.cookie = 'nav_cached=true;path=/;';
+  }
+})();
+// </script>
