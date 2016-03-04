@@ -1,0 +1,25 @@
+{
+    "node": true,
+    "browser": true,
+    "es3": true,
+    "bitwise": true,
+    "camelcase": false,
+    "curly": false,
+    "eqeqeq": false,
+    "immed": false,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "quotmark": "false",
+    "regexp": true,
+    "undef": true,
+    "unused": true,
+    "strict": false,
+    "sub": true,
+    "trailing": true,
+    "smarttabs": true,
+    "jquery": true,
+    "predef": [
+      "Honeybadger"
+    ]
+}

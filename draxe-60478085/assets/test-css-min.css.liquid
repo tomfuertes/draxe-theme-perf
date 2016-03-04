@@ -1,0 +1,23 @@
+/*!
+{% assign base_font =  %}
+{% case settings.base_font_type %}
+{% when 'font_regular' %}
+	{% assign base_font = settings.base_font_regular_family %}
+{% when 'font_custom' %}
+	{% assign base_font = settings.base_font_custom_family %}
+{% endcase %}
+*/
+
+{{base_font}}
+
+/*!
+{% assign heading_font =  %}
+{% case settings.heading_font_type %}
+{% when 'font_regular' %}
+    {% assign heading_font = settings.heading_font_regular_family %}
+{% when 'font_custom' %}
+    {% assign heading_font = settings.heading_font_custom_family %}
+{% endcase %}
+*/
+
+{{heading_font}}
