@@ -12,16 +12,18 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  {% if page_description %}
+
+{% if page_description %}
   <meta name="description" content="{{ page_description }}" />
-  {% endif %}
+{% endif %}
+
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
   <meta name="google-site-verification" content="of4PvUHbYoO8zTSM84DI9bBo3BJNGizV3Xs-vy-2FSg" />
 
   <meta property="og:site_name" content="{{ shop.name }}" />
 
-  {% if template contains 'product' %}
+{% if template contains 'product' %}
   <meta property="og:image" content="{{ product.featured_image | product_img_url: 'large'  | prepend: 'https:' }}" />
   {% elsif template contains 'article' %}
   {% if article.content contains '&#60;img' %}
@@ -31,18 +33,19 @@
   {% endif %}
   {% else %}
   <meta property="og:image" content="{{ 'draxe-logo.png' | asset_url | prepend: 'https:' }}" />
-  {% endif %}
+{% endif %}
 
-  {% if template == 'index' %}
+{% if template == 'index' %}
   <title>{{ shop.name }} | {{ page_title }}</title>
-  {% elsif template == '404' %}
+{% elsif template == '404' %}
   <title>Page Not Found | {{ shop.name }}</title>
-  {% else %}
+{% else %}
   <title>{{ page_title }} | {{ shop.name }}</title>
-  {% endif %}
+{% endif %}
 
   <link rel="canonical" href="{{ canonical_url }}" />
   <link href="{{ 'favicon.ico' | asset_url  }}" rel="shortcut icon" type="image/x-icon" />
+
   {{ content_for_header }}
 
   {{ 'bootstrap.css' | asset_url | stylesheet_tag }}
@@ -69,10 +72,10 @@
   <style type="text/css">.gradient {filter: none;}</style>
   <![endif]-->
 
-  {% if template contains 'customers' %}
+{% if template contains 'customers' %}
   {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
   {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
-  {% endif %}
+{% endif %}
 
   {{ 'option_selection.js' | shopify_asset_url | script_tag }}
   {{ 'bootstrap.min.js'  | asset_url | script_tag }}
