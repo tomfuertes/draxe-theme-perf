@@ -102,87 +102,11 @@
 
   {% include 'snippet-currencies' %}
 
-<script type="text/javascript">
-(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/SznxyQVuSpG8D03uuWfDCoeBWElC0j4bgICDZHCW/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();
-</script>
-<script type="text/javascript">
+  {% include 'yotpo.html' %}
 
-jQuery(document).ready(function($) {
-    var owl2 = $('.owl-supplementcarousel');
+  {% include 'carousel-init.html' %}
 
-      if (owl2.length) {
-        owl2.owlCarousel({
-          items: 6,
-          responsiveClass:true,
-          responsive:{
-          0:{items:1,nav:true},
-          400:{items:2,nav:true},
-          600:{items:3,nav:true},
-          900:{items:4,nav:true},
-          1000:{items:6,nav:true}
-
-           }
-        });
-                         }
-    var owl = $('#product-carousel');
-
-      if (owl.length) {
-        owl.owlCarousel({
-         items: 6,
-          responsiveClass:true,
-          responsive:{
-          0:{items:1,nav:true},
-          400:{items:2,nav:true},
-          600:{items:3,nav:true},
-          900:{items:4,nav:true},
-          1000:{items:6,nav:true}
-
-           }
-        });
-      }
-    var owl1 = $('.owl-kitcarousel');
-
-      if (owl1.length) {
-        owl1.owlCarousel({
-          items: 6,
-          responsiveClass:true,
-          responsive:{
-          0:{items:1,nav:true},
-          400:{items:2,nav:true},
-          600:{items:3,nav:true},
-          900:{items:4,nav:true},
-          1000:{items:6,nav:true}
-
-           }
-        });
-      }
-
-    /**
-     * BxSlider
-     **/
-    var homeSider = jQuery('#slider .slider-wrap');
-    homeSider.bxSlider({
-    auto : true
-    ,pause : 4000
-    ,mode : 'fade'
-    ,infiniteLoop : true
-    ,pager : false
-    ,controls : true
-    ,minSlides : 1
-    ,maxSlides : 1
-    ,moveSlides : 1
-    ,slideMargin : 0
-    ,responsive : true
-    ,nextText : '<i class="fa fa-angle-right"></i>'
-    ,prevText : '<i class="fa fa-angle-left"></i>'
-  });
-
-  });
-  </script>
-
-<!-- Start of draxe Zendesk Widget script --><script>// <![CDATA[
-window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(c){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var o=this.createElement("script");n&&(this.domain=n),o.id="js-iframe-async",o.src=e,this.t=+new Date,this.zendeskHost=t,this.zEQueue=a,this.body.appendChild(o)},o.write('<body onload="document._l();">'),o.close()}("https://assets.zendesk.com/embeddable_framework/main.js","draxe.zendesk.com");
-// ]]></script><!-- End of draxe Zendesk Widget script -->
+  {% include 'zendesk.html' %}
 
 <!-- Start Visual Website Optimizer Asynchronous Code -->
 <script type='text/javascript'>
@@ -193,7 +117,6 @@ library_tolerance=2500,
 use_existing_jquery=false,
 // DO NOT EDIT BELOW THIS LINE
 f=false,d=document;return{use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){settings_timer=setTimeout('_vwo_code.finish()',settings_tolerance);this.load('//dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&r='+Math.random());var a=d.createElement('style'),b='body{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}',h=d.getElementsByTagName('head')[0];a.setAttribute('id','_vis_opt_path_hides');a.setAttribute('type','text/css');if(a.styleSheet)a.styleSheet.cssText=b;else a.appendChild(d.createTextNode(b));h.appendChild(a);return settings_timer;}};}());_vwo_settings_timer=_vwo_code.init();
-
 </script>
 
 <script type="text/javascript">
