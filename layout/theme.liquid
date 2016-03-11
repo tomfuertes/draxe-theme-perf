@@ -54,8 +54,8 @@
     {{ 'vendor.css' | asset_url | stylesheet_tag }}
     {{ 'bvaccel.css' | asset_url | stylesheet_tag }}
 
-  {{ settings.base_font_custom_code | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ settings.heading_font_custom_code | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
+  {{ settings.base_font_custom_code }}
+    {{ settings.heading_font_custom_code }}
 
     <!--[if lt IE 9]>
     {{ '//html5shiv.googlecode.com/svn/trunk/html5.js' | script_tag }}
@@ -67,35 +67,35 @@
     <![endif]-->
 
     {% if template contains 'customers' %}
-    {{ 'shopify_common.js' | shopify_asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'customer_area.js'  | shopify_asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+    {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
     {% endif %}
 
-    {{ 'option_selection.js' | shopify_asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'bootstrap.min.js'  | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'jquery-migrate-1.2.1.min.js'  | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'jquery.mobile.customized.min.js'  | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'shop.js'  | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'camera.min.js'  | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'jquery.easing.1.3.js'  | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'api.jquery.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'ajaxify-shop.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'hoverIntent.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'superfish.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'supersubs.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'jquery.mobilemenu.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'sftouchscreen.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'jquery.fancybox-1.3.4.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'jquery.bxslider.min.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'jquery.caroufredsel.min.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'jquery.nivoslider.js'  | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'jquery.customSelect.min.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-  {{ 'fancySelect.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-  {{ 'zozo.tabs.min.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'owl.carousel.min.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'custom.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'cj-override.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
-    {{ 'vendor.js' | asset_url | script_tag | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}
+    {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+    {{ 'bootstrap.min.js'  | asset_url | script_tag }}
+    {{ 'jquery-migrate-1.2.1.min.js'  | asset_url | script_tag }}
+    {{ 'jquery.mobile.customized.min.js'  | asset_url | script_tag }}
+    {{ 'shop.js'  | asset_url | script_tag }}
+    {{ 'camera.min.js'  | asset_url | script_tag }}
+    {{ 'jquery.easing.1.3.js'  | asset_url | script_tag }}
+    {{ 'api.jquery.js' | asset_url | script_tag }}
+    {{ 'ajaxify-shop.js' | asset_url | script_tag }}
+    {{ 'hoverIntent.js' | asset_url | script_tag }}
+    {{ 'superfish.js' | asset_url | script_tag }}
+    {{ 'supersubs.js' | asset_url | script_tag }}
+    {{ 'jquery.mobilemenu.js' | asset_url | script_tag }}
+    {{ 'sftouchscreen.js' | asset_url | script_tag }}
+    {{ 'jquery.fancybox-1.3.4.js' | asset_url | script_tag }}
+    {{ 'jquery.bxslider.min.js' | asset_url | script_tag }}
+    {{ 'jquery.caroufredsel.min.js' | asset_url | script_tag }}
+    {{ 'jquery.nivoslider.js'  | asset_url | script_tag }}
+    {{ 'jquery.customSelect.min.js' | asset_url | script_tag }}
+  {{ 'fancySelect.js' | asset_url | script_tag }}
+  {{ 'zozo.tabs.min.js' | asset_url | script_tag }}
+    {{ 'owl.carousel.min.js' | asset_url | script_tag }}
+    {{ 'custom.js' | asset_url | script_tag }}
+    {{ 'cj-override.js' | asset_url | script_tag }}
+    {{ 'vendor.js' | asset_url | script_tag }}
     {% include 'snippet-currencies' %}
 
 
@@ -348,7 +348,7 @@ f=false,d=document;return{use_existing_jquery:function(){return use_existing_jqu
                 {% if collection_menu.image %}
                 <div class="big-thumb">
                   <figure><a href="{{ collection_menu.url }}" class="first">
-                    <img data-src="{{ collection_menu.image.src | img_url: 'large' | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}"></a>
+                    <img data-src="{{ collection_menu.image.src | img_url: 'large' }}"></a>
                   </figure>
                   <a href="{{ collection_menu.url }}" class="first"><span>Show Now</span></a>
                 </div>
@@ -358,7 +358,7 @@ f=false,d=document;return{use_existing_jquery:function(){return use_existing_jqu
                     {% for prod in collection_menu.products limit:12 %}
                       <li class="" style="margin-bottom:15px;">
                           <a href="{{ collection_menu.url }}{{ prod.url }}" class="">
-                          <img data-src="{{ prod.featured_image.src | img_url: 'medium' | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}">
+                          <img data-src="{{ prod.featured_image.src | img_url: 'medium' }}">
                             <span class="title">{{ prod.title }}</span>
                           </a>
                       </li>
@@ -489,7 +489,7 @@ f=false,d=document;return{use_existing_jquery:function(){return use_existing_jqu
                     <input name="infusionsoft_version" type="hidden" value="1.30.0.508" />
 
 
-                    <img src="{{ 'dr-axe-sm.png' | asset_url | replace_first: 'cdn.shopify.com', shop.metafields.perf.cdn }}" alt="Dr. Axe" />
+                    <img src="{{ 'dr-axe-sm.png' | asset_url }}" alt="Dr. Axe" />
                     <h3 class="optin-footer-text"> Get FREE ACCESS &#8594;<br />
                     <span>To my FREE eBook, 30 Gluten-Free Recipes &amp; Shopping Guide!</span></h3>
                      <div class="optin-footer-dropdown">
