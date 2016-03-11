@@ -24,13 +24,13 @@
 
 {% if template contains 'product' %}
   <meta property="og:image" content="{{ product.featured_image | product_img_url: 'large'  | prepend: 'https:' }}" />
-  {% elsif template contains 'article' %}
+{% elsif template contains 'article' %}
   {% if article.content contains '&#60;img' %}
-  {% assign src = article.content | split: 'src="' %}
-  {% assign src = src[1] | split: '"' | first | replace: '//cdn', 'https://cdn' | replace: 'http:http://', 'https://' %}
-  {% if src %}<meta property="og:image" content="{{ src }}" />{% endif %}
+    {% assign src = article.content | split: 'src="' %}
+    {% assign src = src[1] | split: '"' | first | replace: '//cdn', 'https://cdn' | replace: 'http:http://', 'https://' %}
+    {% if src %}<meta property="og:image" content="{{ src }}" />{% endif %}
   {% endif %}
-  {% else %}
+{% else %}
   <meta property="og:image" content="{{ 'draxe-logo.png' | asset_url | prepend: 'https:' }}" />
 {% endif %}
 
