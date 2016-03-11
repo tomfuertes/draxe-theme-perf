@@ -6,98 +6,101 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->
 <!-- Edited by: Michael Danner -->
 <head>
-    {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' | script_tag }}
-    <script src="//cdn.optimizely.com/js/5046370664.js"></script>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    {% if page_description %}
-    <meta name="description" content="{{ page_description }}" />
-    {% endif %}
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-    <meta name="google-site-verification" content="of4PvUHbYoO8zTSM84DI9bBo3BJNGizV3Xs-vy-2FSg" />
+  {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' | script_tag }}
+  <script src="//cdn.optimizely.com/js/5046370664.js"></script>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  {% if page_description %}
+  <meta name="description" content="{{ page_description }}" />
+  {% endif %}
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <meta name="google-site-verification" content="of4PvUHbYoO8zTSM84DI9bBo3BJNGizV3Xs-vy-2FSg" />
 
   <meta property="og:site_name" content="{{ shop.name }}" />
-{% if template contains 'product' %}
-<meta property="og:image" content="{{ product.featured_image | product_img_url: 'large'  | prepend: 'https:' }}" />
-{% elsif template contains 'article' %}
-{% if article.content contains '&#60;img' %}
-{% assign src = article.content | split: 'src="' %}
-{% assign src = src[1] | split: '"' | first | replace: '//cdn', 'https://cdn' | replace: 'http:http://', 'https://' %}
-{% if src %}<meta property="og:image" content="{{ src }}" />{% endif %}
-{% endif %}
-{% else %}
-<meta property="og:image" content="{{ 'draxe-logo.png' | asset_url | prepend: 'https:' }}" />
-{% endif %}
 
-    {% if template == 'index' %}
-    <title>{{ shop.name }} | {{ page_title }}</title>
-    {% elsif template == '404' %}
-    <title>Page Not Found | {{ shop.name }}</title>
-    {% else %}
-    <title>{{ page_title }} | {{ shop.name }}</title>
-    {% endif %}
+  {% if template contains 'product' %}
+  <meta property="og:image" content="{{ product.featured_image | product_img_url: 'large'  | prepend: 'https:' }}" />
+  {% elsif template contains 'article' %}
+  {% if article.content contains '&#60;img' %}
+  {% assign src = article.content | split: 'src="' %}
+  {% assign src = src[1] | split: '"' | first | replace: '//cdn', 'https://cdn' | replace: 'http:http://', 'https://' %}
+  {% if src %}<meta property="og:image" content="{{ src }}" />{% endif %}
+  {% endif %}
+  {% else %}
+  <meta property="og:image" content="{{ 'draxe-logo.png' | asset_url | prepend: 'https:' }}" />
+  {% endif %}
 
-    <link rel="canonical" href="{{ canonical_url }}" />
-    <link href="{{ 'favicon.ico' | asset_url  }}" rel="shortcut icon" type="image/x-icon" />
-    {{ content_for_header }}
+  {% if template == 'index' %}
+  <title>{{ shop.name }} | {{ page_title }}</title>
+  {% elsif template == '404' %}
+  <title>Page Not Found | {{ shop.name }}</title>
+  {% else %}
+  <title>{{ page_title }} | {{ shop.name }}</title>
+  {% endif %}
 
-    {{ 'bootstrap.css' | asset_url | stylesheet_tag }}
-    {{ 'assets.css' | asset_url | stylesheet_tag }}
-  	{{ 'owl.carousel.css' | asset_url | stylesheet_tag }}
-    {{ 'style.css' | asset_url | stylesheet_tag }}
-    {{ 'responsive.css' | asset_url | stylesheet_tag }}
-    {{ 'font-awesome.css' | asset_url | stylesheet_tag }}
-	  {{ 'zozo.tabs.css' | asset_url | stylesheet_tag }}
-    {{ 'jquery.bxslider.css' | asset_url | stylesheet_tag }}
-	  {{ 'custom-style.scss' | asset_url | stylesheet_tag }}
-    {{ 'vendor.css' | asset_url | stylesheet_tag }}
-    {{ 'bvaccel.css' | asset_url | stylesheet_tag }}
+  <link rel="canonical" href="{{ canonical_url }}" />
+  <link href="{{ 'favicon.ico' | asset_url  }}" rel="shortcut icon" type="image/x-icon" />
+  {{ content_for_header }}
+
+  {{ 'bootstrap.css' | asset_url | stylesheet_tag }}
+  {{ 'assets.css' | asset_url | stylesheet_tag }}
+  {{ 'owl.carousel.css' | asset_url | stylesheet_tag }}
+  {{ 'style.css' | asset_url | stylesheet_tag }}
+  {{ 'responsive.css' | asset_url | stylesheet_tag }}
+  {{ 'font-awesome.css' | asset_url | stylesheet_tag }}
+  {{ 'zozo.tabs.css' | asset_url | stylesheet_tag }}
+  {{ 'jquery.bxslider.css' | asset_url | stylesheet_tag }}
+  {{ 'custom-style.scss' | asset_url | stylesheet_tag }}
+  {{ 'vendor.css' | asset_url | stylesheet_tag }}
+  {{ 'bvaccel.css' | asset_url | stylesheet_tag }}
 
   {{ settings.base_font_custom_code }}
-    {{ settings.heading_font_custom_code }}
+  {{ settings.heading_font_custom_code }}
 
-    <!--[if lt IE 9]>
-    {{ '//html5shiv.googlecode.com/svn/trunk/html5.js' | script_tag }}
-    {{ 'ie8.css' | asset_url | stylesheet_tag }}
-    <![endif]-->
+  <!--[if lt IE 9]>
+  {{ '//html5shiv.googlecode.com/svn/trunk/html5.js' | script_tag }}
+  {{ 'ie8.css' | asset_url | stylesheet_tag }}
+  <![endif]-->
 
-    <!--[if gte IE 9]>
-    <style type="text/css">.gradient {filter: none;}</style>
-    <![endif]-->
+  <!--[if gte IE 9]>
+  <style type="text/css">.gradient {filter: none;}</style>
+  <![endif]-->
 
-    {% if template contains 'customers' %}
-    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
-    {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
-    {% endif %}
+  {% if template contains 'customers' %}
+  {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+  {{ 'customer_area.js'  | shopify_asset_url | script_tag }}
+  {% endif %}
 
-    {{ 'option_selection.js' | shopify_asset_url | script_tag }}
-    {{ 'bootstrap.min.js'  | asset_url | script_tag }}
-    {{ 'jquery-migrate-1.2.1.min.js'  | asset_url | script_tag }}
-    {{ 'jquery.mobile.customized.min.js'  | asset_url | script_tag }}
-    {{ 'shop.js'  | asset_url | script_tag }}
-    {{ 'camera.min.js'  | asset_url | script_tag }}
-    {{ 'jquery.easing.1.3.js'  | asset_url | script_tag }}
-    {{ 'api.jquery.js' | asset_url | script_tag }}
-    {{ 'ajaxify-shop.js' | asset_url | script_tag }}
-    {{ 'hoverIntent.js' | asset_url | script_tag }}
-    {{ 'superfish.js' | asset_url | script_tag }}
-    {{ 'supersubs.js' | asset_url | script_tag }}
-    {{ 'jquery.mobilemenu.js' | asset_url | script_tag }}
-    {{ 'sftouchscreen.js' | asset_url | script_tag }}
-    {{ 'jquery.fancybox-1.3.4.js' | asset_url | script_tag }}
-    {{ 'jquery.bxslider.min.js' | asset_url | script_tag }}
-    {{ 'jquery.caroufredsel.min.js' | asset_url | script_tag }}
-    {{ 'jquery.nivoslider.js'  | asset_url | script_tag }}
-    {{ 'jquery.customSelect.min.js' | asset_url | script_tag }}
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+  {{ 'bootstrap.min.js'  | asset_url | script_tag }}
+  {{ 'jquery-migrate-1.2.1.min.js'  | asset_url | script_tag }}
+  {{ 'jquery.mobile.customized.min.js'  | asset_url | script_tag }}
+  {{ 'shop.js'  | asset_url | script_tag }}
+  {{ 'camera.min.js'  | asset_url | script_tag }}
+  {{ 'jquery.easing.1.3.js'  | asset_url | script_tag }}
+  {{ 'api.jquery.js' | asset_url | script_tag }}
+  {{ 'ajaxify-shop.js' | asset_url | script_tag }}
+  {{ 'hoverIntent.js' | asset_url | script_tag }}
+  {{ 'superfish.js' | asset_url | script_tag }}
+  {{ 'supersubs.js' | asset_url | script_tag }}
+  {{ 'jquery.mobilemenu.js' | asset_url | script_tag }}
+  {{ 'sftouchscreen.js' | asset_url | script_tag }}
+  {{ 'jquery.fancybox-1.3.4.js' | asset_url | script_tag }}
+  {{ 'jquery.bxslider.min.js' | asset_url | script_tag }}
+  {{ 'jquery.caroufredsel.min.js' | asset_url | script_tag }}
+  {{ 'jquery.nivoslider.js'  | asset_url | script_tag }}
+  {{ 'jquery.customSelect.min.js' | asset_url | script_tag }}
   {{ 'fancySelect.js' | asset_url | script_tag }}
   {{ 'zozo.tabs.min.js' | asset_url | script_tag }}
-    {{ 'owl.carousel.min.js' | asset_url | script_tag }}
-    {{ 'custom.js' | asset_url | script_tag }}
-    {{ 'cj-override.js' | asset_url | script_tag }}
-    {{ 'vendor.js' | asset_url | script_tag }}
-    {% include 'snippet-currencies' %}
+  {{ 'owl.carousel.min.js' | asset_url | script_tag }}
+  {{ 'custom.js' | asset_url | script_tag }}
+  {{ 'cj-override.js' | asset_url | script_tag }}
+  {{ 'vendor.js' | asset_url | script_tag }}
 
+  {% include 'snippet-currencies' %}
 
 <script type="text/javascript">
 (function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/SznxyQVuSpG8D03uuWfDCoeBWElC0j4bgICDZHCW/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();
